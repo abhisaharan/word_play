@@ -1,14 +1,22 @@
-fin = open("words.txt", "r")
-ctr = 0
-w_ctr = 0
-for line in fin :
-    word = line.strip()
-    w_ctr += 1
-    if not ( 'e' in word or 'E' in word ) :
-#        print "%s does not contain the letter 'e'" % word  # This takes too long, but is useful for debugging
-        ctr += 1
-print ("There are %d words that do not contain the letter 'e' out of %d words" % (
-    ctr, w_ctr ))
-print ("That is %.2f %%" % (( 100.0 * float(ctr)/float(w_ctr) ),))
-
-fin.close()
+def is_abecedarian(word):
+    previous = word[0]
+    for c in word:
+        if c < previous:
+            return False
+        previous = c
+    return True
+#An alternative is to use recursion:
+def is_abecedarian(word):
+    if len(word) <= 1:
+        return True
+    if word[0] > word[1]:
+        return False
+    return is_abecedarian(word[1:])
+#Another option is to use a while loop:
+def is_abecedarian(word):
+    i = 0
+    while i < len(word)-1:
+        if word[i+1] < word[i]:
+            return False
+        i = i+1
+    return True
